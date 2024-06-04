@@ -7,7 +7,8 @@ def get_properties(class_name):
         for line in f:
             if line.startswith("    private"):
                 temp = line.split("$")[1].split(";")[0].split(" ")[0]
-                if temp != "createdAt" and temp != "updatedAt" and temp != "createdBy" and temp != "updatedBy" and temp != "id":
+                ignoredFields = ["id", "createdAt", "updatedAt", "createdBy", "updatedBy"]
+                if temp not in ignoredFields:
                     properties.append(temp)
     return properties
 
