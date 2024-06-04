@@ -21,14 +21,12 @@ def modify_code(file_path):
     properties_str = properties_str.replace(",", "', '")
     properties_str = "'" + properties_str + "'"
     replace = False
-    # print(file_path, properties_str)
 
     # Check and update #[Gedmo\\Blameable
     blameable_match = re.search(r"(?<=#\[Gedmo\\Blameable\(on: 'change', field: \[)([^{}]+)(?=\]\)\]\n    private \$updatedBy)", code)
     if blameable_match:
         existing_fields = blameable_match.group(1)
         if existing_fields != properties_str:
-            # print(blameable_match.group(1), properties_str)
             code = code.replace(existing_fields, properties_str)
             replace = True
             print(f"Updated @Gedmo\\Blameable for {file_path}")
@@ -38,7 +36,6 @@ def modify_code(file_path):
     if timestampable_match:
         existing_fields = timestampable_match.group(1)
         if existing_fields != properties_str:
-            # print(timestampable_match.group(1), properties_str)
             code = code.replace(existing_fields, properties_str)
             replace = True
             print(f"Updated @Gedmo\\Timestampable for {file_path}")
